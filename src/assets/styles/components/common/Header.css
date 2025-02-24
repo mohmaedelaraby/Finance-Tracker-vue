@@ -1,0 +1,27 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 24px 16px;
+  background: #fafafa;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+.header-logo {
+  display: flex;
+  align-items: center;
+}
+.logo {
+  color: black;
+  display: flex;
+  margin-inline-end: 8px;
+  cursor: pointer;
+}
+.logo-icon {
+  height: 30px;
+  width: 30px;
+}
+.title {
+  color: #3b3b3b;
+  font-size: 24px;
+}
+

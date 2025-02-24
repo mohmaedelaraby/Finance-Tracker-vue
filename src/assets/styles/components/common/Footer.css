@@ -1,0 +1,25 @@
+.footer {
+  text-align: center;
+  padding: 12px;
+  background: #060606;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex
+;
+    align-items: center;
+    justify-content: center;
+}
+.footer-container{
+    display: flex;
+    align-items: flex-end;
+}
+.footer-name{
+    color: white;
+    font-size: 12px;
+    margin-inline-end: 8px;
+}
+.footer-date{
+    color: rgb(205, 205, 205);
+    font-size: 8px;
+}

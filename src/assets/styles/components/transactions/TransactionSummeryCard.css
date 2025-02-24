@@ -1,0 +1,64 @@
+.summery-card {
+  width: 100%;
+  background-color: white;
+  border-radius: 20px;
+  min-width: 155px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+.summery-card-container {
+  padding: 16px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+}
+.summery-card-container-header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.summery-card-container-header-label {
+  color: black;
+  font-size: 18px;
+  font-weight: 500;
+}
+.summery-card-container-header-icon {
+  color: #222222;
+  background: #e4e4e4;
+  border-radius: 10px;
+  padding: 8px;
+  display: flex;
+}
+
+.summery-card-container-header-icon-style {
+  width: 20px;
+  height: 20px;
+}
+
+.summery-card-container-bottom{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  margin-top: 16px;
+}
+
+.summery-card-container-bottom-number {
+  font-size: 20px;
+  color: #3b3b3b;
+  font-weight: bold;
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+.income {
+  color: #3c8632;
+}
+.expenses {
+  color: #b12417;
+}
+.total {
+  margin-top: 12px;
+  margin-bottom: 0px;
+}
