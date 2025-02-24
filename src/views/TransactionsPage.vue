@@ -49,5 +49,11 @@ const summeryList = [
     textColor: "black",
     icon: Wallet,
   },
+  {
+    label: "Total Transactions",
+    number: 1968,
+    textColor: "black",
+    icon: Wallet,
+  },
 ];
 </script>
