@@ -43,10 +43,11 @@
       :class="transaction?.income > 0 ? 'income_bg' : 'expenses_bg'"
     >
       <div class="card-preview-action">
-        <button class="icon-btn edit-color" @click="toggleEdit">
+        <button id="editBtn" class="icon-btn edit-color" @click="toggleEdit">
           <Edit />
         </button>
         <button
+        id="deleteBtn"
           class="icon-btn error-color"
           @click="deleteItem(editableTransaction)"
         >
@@ -56,6 +57,7 @@
 
       <div class="card-preview-header">
         <div class="card-preview-header-title">
+          {{ transaction?.category }}
           {{ transaction?.income > 0 ? "Income" : "Expense" }}
         </div>
         <div class="card-preview-header-icon">
@@ -100,7 +102,7 @@
             v-if="transaction?.category"
             class="card-preview-details-category"
           >
-            <div class="card-preview-details-category-label ">category:</div>
+            <div class="card-preview-details-category-label">category:</div>
             <div class="card-preview-details-category-number">
               {{ transaction?.category }}
             </div>
@@ -136,12 +138,16 @@ const categories = store.categories;
 const isEditing = ref(props.isNew);
 
 const editableTransaction = ref(
-  props.transaction
+  props.transaction &&typeof props.transaction === "object"
     ? { ...props.transaction }
     : {
         income: 0,
         expenseAmount: 0,
-        category: "General",
+        exchangeRateIncome: 0,
+        exchangeExpenseAmount: 0,
+        baseCurrency: store.baseCurrency,
+        baseRate: 1,
+        category: "",
         date: new Date().toISOString().split("T")[0],
       }
 );
