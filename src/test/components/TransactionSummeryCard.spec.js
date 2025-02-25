@@ -4,7 +4,7 @@ import TransactionSummeryCard from "../../components/transactions/TransactionSum
 
 
 describe("TransactionSummeryCard.vue", () => {
-  it("renders the correct label", () => {
+  it("render number with right format", () => {
     const wrapper = mount(TransactionSummeryCard, {
       props: {
         label: "Total Income",
@@ -14,7 +14,6 @@ describe("TransactionSummeryCard.vue", () => {
       },
     });
 
-    //test number formating
     const numberElement = wrapper.find('.summery-card-container-bottom-number');
     expect(numberElement.text()).toBe('$1,000.00');
   });

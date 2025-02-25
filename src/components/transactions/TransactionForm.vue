@@ -67,8 +67,8 @@
           </div>
         </div>
 
-        <div class="form-group-item">
-          <div class="form-group-item-label">Category:</div>
+        <div  class="form-group-item">
+          <div  id="category" class="form-group-item-label">Category:</div>
           <div class="form-group-item-input">
             <select v-model="localTransaction.category">
               <option v-for="category in categories" :key="category" :value="category">

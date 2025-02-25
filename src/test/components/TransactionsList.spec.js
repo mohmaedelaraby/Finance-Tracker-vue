@@ -14,10 +14,8 @@ describe("TransactionsList.vue", () => {
   let useTransactionStoreMock;
 
   beforeEach(() => {
-    // Re-initialize Pinia
     setActivePinia(createPinia());
 
-    // Define the mocked store inside beforeEach
     store = {
       transactions: [
         {
@@ -36,7 +34,6 @@ describe("TransactionsList.vue", () => {
       baseCurrency: "USD",
     };
 
-    // Assign mock return value inside beforeEach
     useTransactionStoreMock = require("../../stores/transactionStore").useTransactionStore;
     useTransactionStoreMock.mockReturnValue(store);
   });
@@ -62,21 +59,16 @@ describe("TransactionsList.vue", () => {
   it("resets filters when reset button is clicked", async () => {
     const wrapper = shallowMount(TransactionsList);
   
-    // Open the filter popup first
     await wrapper.find(".icon-btn").trigger("click"); 
     await wrapper.vm.$nextTick(); // Wait for the DOM to update
   
-    // Ensure the filter container is rendered
     expect(wrapper.find(".filter-container").exists()).toBe(true);
   
-    // Find the reset button after opening the filter
     const resetButton = wrapper.find(".secondary-btn");
     expect(resetButton.exists()).toBe(true);
   
-    // Click the reset button
     await resetButton.trigger("click");
   
-    // Validate that filters are reset
     expect(wrapper.vm.selectedCategory).toBe("");
     expect(wrapper.vm.startDate).toBe("");
     expect(wrapper.vm.endDate).toBe("");
