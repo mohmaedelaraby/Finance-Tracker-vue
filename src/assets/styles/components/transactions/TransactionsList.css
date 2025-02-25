@@ -29,13 +29,33 @@
   align-items: center;
   flex-direction: column;
   height: 100%;
-  max-height: calc(100vh - 518px);
+  max-height: calc(100vh - 300px);
 
   overflow-y: auto;
 }
 .transactions-list-body-container-item {
   width: 100%;
   margin-bottom: 20px;
+}
+.transactions-list-body-container-empty{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 32px;
+}
+.transactions-list-body-container-empty-icon{
+
+  margin-bottom: 16px;
+}
+.transactions-list-body-container-empty-icon-style{
+
+ height: 60px;
+ width: 60px;
+}
+.transactions-list-body-container-empty-title{
+  font-size: 32px;
+  font-weight: 500;
 }
 
 /* filter styling */
@@ -56,7 +76,7 @@
 .filter-item,
 .filter-item-date-picker {
   display: flex;
-  align-items: center;
+  align-items: start;
   justify-content: start;
   flex-direction: column;
   margin-right: 4px;

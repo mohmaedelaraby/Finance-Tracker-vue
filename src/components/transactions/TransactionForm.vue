@@ -1,26 +1,18 @@
+
 <template>
+  
   <form @submit.prevent="save">
     <div v-if="activeTab === 'Income'" class="form-group">
       <div class="form-group-item">
         <div class="form-group-item-label">Amount:</div>
         <div class="form-group-item-exchange">
           <div class="form-group-item-input currency-input">
-            <input
-              class="primary-input"
-              type="number"
-              v-model="localTransaction.income"
-            />
+            <input class="primary-input" type="number" v-model="localTransaction.income" />
             <span class="currency-select">
-              <select
-                class="currency-select-style"
-                v-model="localTransaction.baseCurrency"
-              >
+              <select class="currency-select-style" v-model="localTransaction.baseCurrency">
                 <option disabled value="">Select Currency</option>
-                <option
-                  v-for="[currency, rate] in Object.entries(rates)"
-                  :key="currency"
-                  :value="rate"
-                >
+                <!--   eslint-disable-next-line --> 
+                <option v-for="[currency, rate] in Object.entries(rates)" :key="currency" :value="currency">
                   {{ currency }}
                 </option>
               </select>
@@ -32,14 +24,8 @@
           </div>
 
           <div class="form-group-item-input currency-input">
-            <input
-              disabled
-              class="primary-input"
-              type="number"
-              v-model="localTransaction.exchangeRateIncome"
-              readonly
-            />
-            <span class="currency-label">{{ baseCurrncy }}</span>
+            <input disabled class="primary-input" type="number" v-model="localTransaction.exchangeRateIncome" readonly />
+            <span class="currency-label">{{ baseCurrency }}</span>
           </div>
         </div>
       </div>
@@ -47,11 +33,7 @@
       <div class="form-group-item">
         <div class="form-group-item-label">Date:</div>
         <div class="form-group-item-input">
-          <input
-            class="primary-input"
-            type="date"
-            v-model="localTransaction.date"
-          />
+          <input class="primary-input" type="date" v-model="localTransaction.date" />
         </div>
       </div>
     </div>
@@ -62,22 +44,12 @@
           <div class="form-group-item-label">Amount:</div>
           <div class="form-group-item-exchange">
             <div class="form-group-item-input currency-input">
-              <input
-                class="primary-input"
-                type="number"
-                v-model="localTransaction.expenseAmount"
-              />
+              <input class="primary-input" type="number" v-model="localTransaction.expenseAmount" />
               <span class="currency-select">
-                <select
-                  class="currency-select-style"
-                  v-model="localTransaction.baseCurrency"
-                >
+                <select class="currency-select-style" v-model="localTransaction.baseCurrency">
                   <option disabled value="">Select Currency</option>
-                  <option
-                    v-for="[currency, rate] in Object.entries(rates)"
-                    :key="currency"
-                    :value="rate"
-                  >
+                                  <!--   eslint-disable-next-line --> 
+                  <option v-for="[currency, rate] in Object.entries(rates)" :key="currency" :value="currency">
                     {{ currency }}
                   </option>
                 </select>
@@ -89,14 +61,8 @@
             </div>
 
             <div class="form-group-item-input currency-input">
-              <input
-                disabled
-                class="primary-input"
-                type="number"
-                v-model="localTransaction.exchangeExpenseAmount"
-                readonly
-              />
-              <span class="currency-label">{{ baseCurrncy }}</span>
+              <input disabled class="primary-input" type="number" v-model="localTransaction.exchangeExpenseAmount" readonly />
+              <span class="currency-label">{{ baseCurrency }}</span>
             </div>
           </div>
         </div>
@@ -105,11 +71,7 @@
           <div class="form-group-item-label">Category:</div>
           <div class="form-group-item-input">
             <select v-model="localTransaction.category">
-              <option
-                v-for="category in categories"
-                :key="category"
-                :value="category"
-              >
+              <option v-for="category in categories" :key="category" :value="category">
                 {{ category }}
               </option>
             </select>
@@ -119,27 +81,15 @@
         <div class="form-group-item">
           <div class="form-group-item-label">Date:</div>
           <div class="form-group-item-input">
-            <input
-              class="primary-input"
-              type="date"
-              v-model="localTransaction.date"
-            />
+            <input class="primary-input" type="date" v-model="localTransaction.date" />
           </div>
         </div>
       </div>
     </div>
 
     <div class="form-group-actions">
-      <button
-        class="secondary-btn form-group-actions-btn"
-        type="button"
-        @click="cancel"
-      >
-        Cancel
-      </button>
-      <button class="primary-btn form-group-actions-btn" @click="save">
-        Save
-      </button>
+      <button class="secondary-btn form-group-actions-btn" type="button" @click="cancel">Cancel</button>
+      <button class="primary-btn form-group-actions-btn" @click="save">Save</button>
     </div>
   </form>
 </template>
@@ -160,7 +110,7 @@ const emit = defineEmits(["save", "cancel"]);
 
 const localTransaction = ref({ ...props.editableTransaction });
 const store = useTransactionStore();
-const baseCurrncy = computed(() => store.baseCurrency);
+const baseCurrency = computed(() => store.baseCurrency);
 const rates = computed(() => store.exchangeRates);
 
 watch(
@@ -175,11 +125,8 @@ watch(
   () => rates.value,
   (newRates) => {
     if (newRates && Object.keys(newRates).length > 0) {
-      // Set default rate to USD or first available currency
-      localTransaction.value.baseCurrency =
-        localTransaction.value.baseCurrency ||
-        newRates["USD"] ||
-        Object.values(newRates)[0];
+      localTransaction.value.baseCurrency = 
+        localTransaction.value.baseCurrency || "USD";
     }
   },
   { immediate: true }
@@ -189,10 +136,7 @@ watch(
   () => [localTransaction.value.income, localTransaction.value.baseCurrency],
   ([newIncome, newCurrency]) => {
     if (newIncome && newCurrency) {
-      localTransaction.value.exchangeRateIncome = store.convertToBaseCurrency(
-        newIncome,
-        newCurrency // Use the currency code, not the rate
-      );
+      localTransaction.value.exchangeRateIncome = newIncome / rates.value[newCurrency] || 1;
     }
   },
   { deep: true }
@@ -200,12 +144,9 @@ watch(
 
 watch(
   () => [localTransaction.value.expenseAmount, localTransaction.value.baseCurrency],
-  ([newIncome, newCurrency]) => {
-    if (newIncome && newCurrency) {
-      localTransaction.value.exchangeExpenseAmount = store.convertToBaseCurrency(
-        newIncome,
-        newCurrency // Use the currency code, not the rate
-      );
+  ([newExpense, newCurrency]) => {
+    if (newExpense && newCurrency) {
+      localTransaction.value.exchangeExpenseAmount = newExpense / rates.value[newCurrency] || 1;
     }
   },
   { deep: true }

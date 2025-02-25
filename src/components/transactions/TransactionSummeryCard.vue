@@ -11,12 +11,29 @@
         </div>
       </div>
       <div class="summery-card-container-bottom">
-        <div class="summery-card-container-bottom-number" :style="{ color: textColor }">
-        {{ number.toLocaleString() }}
-      </div>
-      </div>
+        
+        <div
+          v-if="isCurrency"
+          class="summery-card-container-bottom-number"
+          :style="{ color: textColor }"
+        >
+          ${{
+            number.toLocaleString("en-US", {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            })
+          }}
+        </div>
 
-     
+        <div
+          v-else
+          class="summery-card-container-bottom-number"
+          :style="{ color: textColor }"
+        >
+          {{ number }}
+        </div>
+
+      </div>
     </div>
   </div>
 </template>
@@ -28,7 +45,8 @@ defineProps({
   label: String,
   number: Number,
   textColor: String,
-  icon: Object, // Accepts a Vue component
+  icon: Object,
+  isCurrency: Boolean,
 });
 </script>
 

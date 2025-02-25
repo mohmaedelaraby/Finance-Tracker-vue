@@ -13,6 +13,7 @@
               :number="summery.number"
               :textColor="summery.textColor"
               :icon="summery.icon"
+              :isCurrency="summery.isCurrency"
             />
           </div>
         </div>
@@ -45,24 +46,28 @@ const summeryList = computed(() => [
     number: store.totalIncome,
     textColor: "#2A5F4A",
     icon: BadgeDollarSign,
+    isCurrency:true,
   },
   {
     label: " Total expenses",
     number: store.totalExpense,
     textColor: "#BC3E3E",
     icon: HandCoins,
+    isCurrency:true,
   },
   {
     label: "Net Balance",
     number: store.netBalance,
     textColor: store.netBalance > 0 ? "#2A5F4A" :"#BC3E3E",
     icon: Wallet,
+    isCurrency:true,
   },
   {
     label: "Total Transactions",
     number: store.totalTransactions,
     textColor: "black",
     icon: Handshake ,
+    isCurrency:false,
   },
 ]);
 </script>

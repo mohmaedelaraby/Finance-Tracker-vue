@@ -49,7 +49,6 @@
 
             <div class="filter-item-action-btns">
               <button @click="resetFilters" class="secondary-btn">Reset</button>
-              <button @click="applyFilters" class="primary-btn">Apply</button>
             </div>
           </div>
         </div>
@@ -84,12 +83,27 @@
         </div>
 
         <!-- Existing transactions -->
-        <div
-          v-for="transaction in filteredTransactions"
-          :key="transaction.id"
-          class="transactions-list-body-container-item"
-        >
-          <TransactionCard :transaction="transaction" />
+        <div class="w-100" v-if="filteredTransactions.length">
+          <div
+            v-for="transaction in filteredTransactions"
+            :key="transaction.id"
+            class="transactions-list-body-container-item"
+          >
+            <TransactionCard :transaction="transaction" />
+          </div>
+        </div>
+
+        <div v-else-if="!filteredTransactions.length && !isAddingTransaction">
+          <div class="transactions-list-body-container-empty">
+            <div class="transactions-list-body-container-empty-icon">
+              <CircleAlert
+                class="transactions-list-body-container-empty-icon-style"
+              />
+            </div>
+            <div class="transactions-list-body-container-empty-title">
+              There is no Transactions
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -97,7 +111,7 @@
 </template>
 
 <script setup>
-import { Filter, CircleX } from "lucide-vue-next";
+import { Filter, CircleX, CircleAlert } from "lucide-vue-next";
 import { ref, watch, onMounted, computed } from "vue";
 import { useTransactionStore } from "@/stores/transactionStore";
 import TransactionCard from "@/components/transactions/TransactionCard.vue";
@@ -125,10 +139,6 @@ const filteredTransactions = computed(() => {
   });
 });
 
-// Apply filters (Triggers computed filtering)
-const applyFilters = () => {
-  isFilter.value = false;
-};
 
 // Reset filters
 const resetFilters = () => {
@@ -168,7 +178,12 @@ const openNewTransactionForm = () => {
   newTransaction.value = {
     income: 0,
     expenseAmount: 0,
-    category: "General",
+    exchangeRateIncome:0,
+    exchangeExpenseAmount:0,
+    baseCurrency:store.baseCurrency,
+    baseRate:1,
+    rate:1,
+    category: "",
     date: new Date().toISOString().split("T")[0],
   };
 };

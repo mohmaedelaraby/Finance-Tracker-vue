@@ -3,19 +3,19 @@ import { defineStore } from "pinia";
 import { ref, watch, onMounted, computed } from "vue";
 
 export const useTransactionStore = defineStore("transactionStore", () => {
-  const transactions = ref(
-    JSON.parse(localStorage.getItem("transactions") || "[]")
-  );
+  const transactions = ref(JSON.parse(localStorage.getItem("transactions") || "[]"));
   const baseCurrency = ref("USD");
+  const baseRate = ref(1);
   const exchangeRates = ref({});
 
   const categories = ["Food", "Transportation", "Bills", "General"];
 
-  //filter action
+  // Filter states
   const selectedCategory = ref("");
   const startDate = ref("");
   const endDate = ref("");
 
+  // Persist transactions to localStorage
   watch(
     transactions,
     () => {
@@ -24,41 +24,41 @@ export const useTransactionStore = defineStore("transactionStore", () => {
     { deep: true }
   );
 
+  // Fetch exchange rates
   const fetchExchangeRates = async () => {
-    exchangeRates.value = await fetchExchangeRatesAPI(baseCurrency.value);
-    console.log(  exchangeRates.value)
+    try {
+      const rates = await fetchExchangeRatesAPI(baseCurrency.value);
+      if (rates) {
+        exchangeRates.value = { ...rates };
+      }
+    } catch (error) {
+      console.error("Failed to fetch exchange rates:", error);
+    }
   };
+
+  // Computed values
   const totalIncome = computed(() =>
-    transactions.value.reduce(
-      (sum, t) => sum + (t.exchangeRateIncome || t.income || 0),
-      0
-    )
+    transactions.value.reduce((sum, t) => sum + (t.exchangeRateIncome || t.income || 0), 0)
   );
 
   const totalExpense = computed(() =>
-    transactions.value.reduce(
-      (sum, t) => sum + (t.exchangeExpenseAmount || t.expenseAmount || 0),
-      0
-    )
+    transactions.value.reduce((sum, t) => sum + (t.exchangeExpenseAmount || t.expenseAmount || 0), 0)
   );
 
   const netBalance = computed(() => totalIncome.value - totalExpense.value);
 
   const totalTransactions = computed(() => transactions.value.length);
 
-  const categoryCounts = computed(() => {
-    return categories.reduce((acc, category) => {
-      acc[category] = transactions.value.filter(
-        (t) => t.category === category
-      ).length;
+  const categoryCounts = computed(() =>
+    categories.reduce((acc, category) => {
+      acc[category] = transactions.value.filter((t) => t.category === category).length;
       return acc;
-    }, {});
-  });
+    }, {})
+  );
 
   const filteredTransactions = computed(() => {
     return transactions.value.filter((t) => {
-      const matchesCategory =
-        !selectedCategory.value || t.category === selectedCategory.value;
+      const matchesCategory = !selectedCategory.value || t.category === selectedCategory.value;
       const matchesDate =
         (!startDate.value || new Date(t.date) >= new Date(startDate.value)) &&
         (!endDate.value || new Date(t.date) <= new Date(endDate.value));
@@ -73,13 +73,15 @@ export const useTransactionStore = defineStore("transactionStore", () => {
     endDate.value = "";
   };
 
+  // Transaction Actions
   const addTransaction = (transaction) => {
     transactions.value.push({
       id: Date.now(),
       income: transaction.income || 0,
       exchangeRateIncome: transaction.exchangeRateIncome || 0,
-      currency: transaction.currency || baseCurrency,
-      rate:transaction.rate || 1,
+      baseCurrency: transaction.baseCurrency || baseCurrency.value, // Ensure it's storing currency code
+      baseRate: transaction.baseRate || baseRate.value,
+      rate: transaction.rate || 1,
       expenseAmount: transaction.expenseAmount || 0,
       exchangeExpenseAmount: transaction.exchangeExpenseAmount || 0,
       category: transaction.category || "",
@@ -102,34 +104,31 @@ export const useTransactionStore = defineStore("transactionStore", () => {
   };
 
   const filterTransactions = (category, dateRange) => {
-    // Return all transactions if no filters are applied
     if (!category && (!dateRange || (!dateRange.start && !dateRange.end))) {
       return transactions.value;
     }
 
-    // Apply filters
     return transactions.value.filter(
       (t) =>
         (!category || t.category === category) &&
-        (!dateRange ||
-          ((!dateRange.start || t.date >= dateRange.start) &&
-            (!dateRange.end || t.date <= dateRange.end)))
+        (!dateRange || ((!dateRange.start || t.date >= dateRange.start) && (!dateRange.end || t.date <= dateRange.end)))
     );
   };
 
-  const convertToBaseCurrency = (amount, rate) => {
-    return amount / (rate || 1);
+  const convertToBaseCurrency = (amount, currency) => {
+    const rate = exchangeRates.value[currency] || 1;
+    return amount / rate;
   };
 
+  // Export to CSV
   const exportToCSV = () => {
     const headers = "Type,Amount,Currency,Category,Date\n";
     const rows = transactions.value
-      .map(
-        (t) =>
-          `Transaction,${t.income - t.expenseAmount},${baseCurrency.value},${
-            t.category
-          },${t.date}`
-      )
+      .map((t) => {
+        const type = t.income ? "Income" : "Expense";
+        const amount = t.income ? t.income : -t.expenseAmount; // Correctly handle negative values for expenses
+        return `${type},${amount},${t.baseCurrency},${t.category},${t.date}`;
+      })
       .join("\n");
 
     const csvContent = "data:text/csv;charset=utf-8," + headers + rows;
@@ -150,6 +149,7 @@ export const useTransactionStore = defineStore("transactionStore", () => {
   return {
     transactions,
     baseCurrency,
+    baseRate,
     exchangeRates,
     categories,
     totalExpense,
