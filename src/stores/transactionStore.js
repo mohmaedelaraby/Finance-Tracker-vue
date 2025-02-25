@@ -1,4 +1,4 @@
-//import { fetchExchangeRatesAPI } from "@/services/exchangeRates";
+import { fetchExchangeRatesAPI } from "@/services/exchangeRates";
 import { defineStore } from "pinia";
 import { ref, watch, onMounted, computed } from "vue";
 
@@ -24,12 +24,22 @@ export const useTransactionStore = defineStore("transactionStore", () => {
     { deep: true }
   );
 
+  const fetchExchangeRates = async () => {
+    exchangeRates.value = await fetchExchangeRatesAPI(baseCurrency.value);
+    console.log(  exchangeRates.value)
+  };
   const totalIncome = computed(() =>
-    transactions.value.reduce((sum, t) => sum + (t.income || 0), 0)
+    transactions.value.reduce(
+      (sum, t) => sum + (t.exchangeRateIncome || t.income || 0),
+      0
+    )
   );
 
   const totalExpense = computed(() =>
-    transactions.value.reduce((sum, t) => sum + (t.expenseAmount || 0), 0)
+    transactions.value.reduce(
+      (sum, t) => sum + (t.exchangeExpenseAmount || t.expenseAmount || 0),
+      0
+    )
   );
 
   const netBalance = computed(() => totalIncome.value - totalExpense.value);
@@ -63,15 +73,15 @@ export const useTransactionStore = defineStore("transactionStore", () => {
     endDate.value = "";
   };
 
-  /*  const fetchExchangeRates = async () => {
-    exchangeRates.value = await fetchExchangeRatesAPI(baseCurrency.value);
-  }; */
-
   const addTransaction = (transaction) => {
     transactions.value.push({
       id: Date.now(),
       income: transaction.income || 0,
+      exchangeRateIncome: transaction.exchangeRateIncome || 0,
+      currency: transaction.currency || baseCurrency,
+      rate:transaction.rate || 1,
       expenseAmount: transaction.expenseAmount || 0,
+      exchangeExpenseAmount: transaction.exchangeExpenseAmount || 0,
       category: transaction.category || "",
       date: transaction.date || new Date().toISOString(),
     });
@@ -96,21 +106,19 @@ export const useTransactionStore = defineStore("transactionStore", () => {
     if (!category && (!dateRange || (!dateRange.start && !dateRange.end))) {
       return transactions.value;
     }
-  
+
     // Apply filters
     return transactions.value.filter(
       (t) =>
         (!category || t.category === category) &&
         (!dateRange ||
-          (!dateRange.start || t.date >= dateRange.start) &&
-          (!dateRange.end || t.date <= dateRange.end))
+          ((!dateRange.start || t.date >= dateRange.start) &&
+            (!dateRange.end || t.date <= dateRange.end)))
     );
   };
-  
 
-  const convertToBaseCurrency = (amount, currency) => {
-    if (currency === baseCurrency.value) return amount;
-    return amount / (exchangeRates.value[currency] || 1);
+  const convertToBaseCurrency = (amount, rate) => {
+    return amount / (rate || 1);
   };
 
   const exportToCSV = () => {
@@ -136,7 +144,7 @@ export const useTransactionStore = defineStore("transactionStore", () => {
   };
 
   onMounted(() => {
-    //fetchExchangeRates();
+    fetchExchangeRates();
   });
 
   return {

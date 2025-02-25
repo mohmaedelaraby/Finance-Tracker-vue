@@ -3,12 +3,44 @@
     <div v-if="activeTab === 'Income'" class="form-group">
       <div class="form-group-item">
         <div class="form-group-item-label">Amount:</div>
-        <div class="form-group-item-input">
-          <input
-            class="primary-input"
-            type="number"
-            v-model="localTransaction.income"
-          />
+        <div class="form-group-item-exchange">
+          <div class="form-group-item-input currency-input">
+            <input
+              class="primary-input"
+              type="number"
+              v-model="localTransaction.income"
+            />
+            <span class="currency-select">
+              <select
+                class="currency-select-style"
+                v-model="localTransaction.baseCurrency"
+              >
+                <option disabled value="">Select Currency</option>
+                <option
+                  v-for="[currency, rate] in Object.entries(rates)"
+                  :key="currency"
+                  :value="rate"
+                >
+                  {{ currency }}
+                </option>
+              </select>
+            </span>
+          </div>
+
+          <div>
+            <ArrowLeftRight />
+          </div>
+
+          <div class="form-group-item-input currency-input">
+            <input
+              disabled
+              class="primary-input"
+              type="number"
+              v-model="localTransaction.exchangeRateIncome"
+              readonly
+            />
+            <span class="currency-label">{{ baseCurrncy }}</span>
+          </div>
         </div>
       </div>
 
@@ -28,12 +60,44 @@
       <div class="form-group">
         <div class="form-group-item">
           <div class="form-group-item-label">Amount:</div>
-          <div class="form-group-item-input">
-            <input
-              class="primary-input"
-              type="number"
-              v-model="localTransaction.expenseAmount"
-            />
+          <div class="form-group-item-exchange">
+            <div class="form-group-item-input currency-input">
+              <input
+                class="primary-input"
+                type="number"
+                v-model="localTransaction.expenseAmount"
+              />
+              <span class="currency-select">
+                <select
+                  class="currency-select-style"
+                  v-model="localTransaction.baseCurrency"
+                >
+                  <option disabled value="">Select Currency</option>
+                  <option
+                    v-for="[currency, rate] in Object.entries(rates)"
+                    :key="currency"
+                    :value="rate"
+                  >
+                    {{ currency }}
+                  </option>
+                </select>
+              </span>
+            </div>
+
+            <div>
+              <ArrowLeftRight />
+            </div>
+
+            <div class="form-group-item-input currency-input">
+              <input
+                disabled
+                class="primary-input"
+                type="number"
+                v-model="localTransaction.exchangeExpenseAmount"
+                readonly
+              />
+              <span class="currency-label">{{ baseCurrncy }}</span>
+            </div>
           </div>
         </div>
 
@@ -66,17 +130,25 @@
     </div>
 
     <div class="form-group-actions">
-      <button class="secondary-btn form-group-actions-btn" type="button" @click="cancel">
+      <button
+        class="secondary-btn form-group-actions-btn"
+        type="button"
+        @click="cancel"
+      >
         Cancel
       </button>
-      <button class="primary-btn form-group-actions-btn" @click="save">Save</button>
+      <button class="primary-btn form-group-actions-btn" @click="save">
+        Save
+      </button>
     </div>
   </form>
 </template>
 
 <script setup>
-import { defineProps, defineEmits, ref, watch } from "vue";
+import { defineProps, defineEmits, ref, watch, computed } from "vue";
 import "@/assets/styles/components/transactions/TransactionForm.css";
+import { useTransactionStore } from "@/stores/transactionStore";
+import { ArrowLeftRight } from "lucide-vue-next";
 
 const props = defineProps({
   editableTransaction: Object,
@@ -86,10 +158,11 @@ const props = defineProps({
 
 const emit = defineEmits(["save", "cancel"]);
 
-// Create a local copy of the transaction
 const localTransaction = ref({ ...props.editableTransaction });
+const store = useTransactionStore();
+const baseCurrncy = computed(() => store.baseCurrency);
+const rates = computed(() => store.exchangeRates);
 
-// Watch for changes in the prop and update the local copy
 watch(
   () => props.editableTransaction,
   (newTransaction) => {
@@ -98,12 +171,50 @@ watch(
   { deep: true, immediate: true }
 );
 
-// Emit save event with updated local data
+watch(
+  () => rates.value,
+  (newRates) => {
+    if (newRates && Object.keys(newRates).length > 0) {
+      // Set default rate to USD or first available currency
+      localTransaction.value.baseCurrency =
+        localTransaction.value.baseCurrency ||
+        newRates["USD"] ||
+        Object.values(newRates)[0];
+    }
+  },
+  { immediate: true }
+);
+
+watch(
+  () => [localTransaction.value.income, localTransaction.value.baseCurrency],
+  ([newIncome, newCurrency]) => {
+    if (newIncome && newCurrency) {
+      localTransaction.value.exchangeRateIncome = store.convertToBaseCurrency(
+        newIncome,
+        newCurrency // Use the currency code, not the rate
+      );
+    }
+  },
+  { deep: true }
+);
+
+watch(
+  () => [localTransaction.value.expenseAmount, localTransaction.value.baseCurrency],
+  ([newIncome, newCurrency]) => {
+    if (newIncome && newCurrency) {
+      localTransaction.value.exchangeExpenseAmount = store.convertToBaseCurrency(
+        newIncome,
+        newCurrency // Use the currency code, not the rate
+      );
+    }
+  },
+  { deep: true }
+);
+
 const save = () => {
   emit("save", localTransaction.value);
 };
 
-// Emit cancel event
 const cancel = () => {
   emit("cancel");
 };

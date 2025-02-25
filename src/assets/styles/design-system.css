@@ -44,6 +44,7 @@
 }
 
 .primary-input {
+  position: relative;
   color: black;
   font-size: 16px;
   border: 2px solid gray;
@@ -56,18 +57,39 @@
 .primary-input:focus {
   border-color: #3b3b3b;
 }
-.error-color {
-  background-color: #ff0022;
-  color: white;
+.primary-input:disabled {
+  background-color: #e4e9e9;
 }
-.edit-color {
-  background-color: #007bff;
-  color: white;
+
+.currency-input {
+  position: relative;
+  display: flex;
+  align-items: center;
 }
+
+.currency-input .primary-input {
+  padding-right: 40px; /* Prevent text overlap */
+}
+
+.currency-label {
+  position: absolute;
+  right: 10px;
+  font-weight: bold;
+  color: #555;
+}
+.currency-select{
+  position: absolute;
+    right: 0px;
+    width: 25%;
+}
+.currency-select-style{
+  background-color: #b0b1b1;
+}
+
 
 select {
   width: 100%;
-  padding: 10px;
+  padding: 8px;
   border: 1px solid #333;
   border-radius: 5px;
   background-color: white;
@@ -94,9 +116,25 @@ option {
   background: white;
   color: #333;
 }
+
+.error-color {
+  background-color: #ff0022;
+  color: white;
+}
+.edit-color {
+  background-color: #007bff;
+  color: white;
+}
+
 .income {
   color: #3c8632;
 }
 .expenses {
   color: #b12417;
+}
+.income_bg {
+  background-color: #bdffb5;
+}
+.expenses_bg {
+  background-color: #ff948b;
 }

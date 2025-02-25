@@ -1,6 +1,6 @@
 <template>
-  <div class="card">
-    <div v-if="isEditing || isNew">
+  <div class="card" >
+    <div class="card-form" v-if="isEditing || isNew">
       <div class="card-title">
         {{ isNew ? "New Transaction" : "Edit Transaction" }}
       </div>
@@ -37,7 +37,7 @@
       </div>
     </div>
 
-    <div v-else class="card-preview">
+    <div v-else class="card-preview" :class="transaction?.income > 0 ? 'income_bg': 'expenses_bg' ">
       <div class="card-preview-action">
         <button class="icon-btn edit-color" @click="toggleEdit">
           <Edit />
