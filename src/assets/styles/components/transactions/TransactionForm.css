@@ -11,11 +11,15 @@
   align-items: start;
   margin-bottom: 8px;
   flex-direction: column;
+  width: 100%;
+  margin-left: 12px;
+  margin-right: 12px;
 }
 .form-group-item-label {
-  font-size: 16px;
+  font-size: 20px;
+  font-weight: 600;
   color: black;
-  padding: 14px;
+  padding: 12px;
 }
 .form-group-item-input {
   margin-inline-start: 8px;

@@ -55,7 +55,7 @@ const summeryList = computed(() => [
   {
     label: "Net Balance",
     number: store.netBalance,
-    textColor: store.netBalance > 0 ? "#2A5F4A" :"#2A5F4A",
+    textColor: store.netBalance > 0 ? "#2A5F4A" :"#BC3E3E",
     icon: Wallet,
   },
   {

@@ -1,7 +1,9 @@
 <template>
   <div class="card">
     <div v-if="isEditing || isNew">
-      <div class="card-title">{{ isNew ? "New Transaction" : "Edit Transaction" }}</div>
+      <div class="card-title">
+        {{ isNew ? "New Transaction" : "Edit Transaction" }}
+      </div>
 
       <div
         v-if="!editableTransaction.income && !editableTransaction.expenseAmount"
@@ -52,6 +54,21 @@
         <div class="card-preview-header-title">
           {{ transaction?.income > 0 ? "Income" : "Expense" }}
         </div>
+        <div class="card-preview-header-icon">
+          <div
+            class="card-preview-header-icon-container"
+            v-if="transaction?.income > 0"
+          >
+            <HandCoins
+              class="card-preview-header-icon-container-iconstyle income"
+            />
+          </div>
+          <div class="card-preview-header-icon-container" v-else>
+            <BadgeDollarSign
+              class="card-preview-header-icon-container-iconstyle expenses"
+            />
+          </div>
+        </div>
       </div>
       <div class="card-preview-body">
         <div class="card-preview-amount">
@@ -69,7 +86,7 @@
 import { ref, defineProps, watch, defineEmits } from "vue";
 import { useTransactionStore } from "@/stores/transactionStore";
 import TransactionForm from "./TransactionForm.vue";
-import { Edit, Trash2 } from "lucide-vue-next";
+import { Edit, Trash2, HandCoins, BadgeDollarSign } from "lucide-vue-next";
 import "@/assets/styles/components/transactions/TransactionCard.css";
 
 const store = useTransactionStore();

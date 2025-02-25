@@ -1,5 +1,4 @@
 .card {
-  border: 1px solid #ccc;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   border-radius: 20px;
   padding: 16px;
@@ -39,7 +38,8 @@
 }
 .card-preview-header-icon-container {
   color: #222222;
-  background: #e4e4e4;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  background: #faf9f9;
   border-radius: 10px;
   padding: 8px;
   display: flex;
@@ -80,6 +80,7 @@
   align-items: center;
   justify-content: space-between;
 }
+
 
 /* tabs part */
 
