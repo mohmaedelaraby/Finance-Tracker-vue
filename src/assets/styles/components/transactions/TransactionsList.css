@@ -18,7 +18,6 @@
   justify-content: start;
   height: 100%;
   width: 100%;
-  
 }
 .transactions-list-body-container {
   width: 100%;
@@ -30,11 +29,63 @@
   align-items: center;
   flex-direction: column;
   height: 100%;
-  max-height:calc(100vh - 518px);
+  max-height: calc(100vh - 518px);
 
   overflow-y: auto;
 }
 .transactions-list-body-container-item {
   width: 100%;
   margin-bottom: 8px;
+}
+
+/* filter styling */
+
+.filter {
+  position: relative;
+}
+.filter-container {
+  position: absolute;
+  top: 100%;
+  left: 0%;
+  background: white;
+  padding: 16px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+}
+.filter-item,
+.filter-item-date-picker {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  flex-direction: column;
+  margin-right: 4px;
+  margin-left: 4px;
+}
+.filter-item-label {
+  font-size: 16px;
+  color: #3b3b3b;
+}
+.filter-label-action {
+  width: 100%;
+  margin-top: 8px;
+}
+.filter-item-action-btns {
+  width: 100%;
+  margin-top: 16px;
+}
+.filter-item-date,
+.filter-container-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8px;
+}
+.filter-container-header-title{
+  font-size: 24px;
+  font-weight: 600;
+  color: black;
+}
+.filter-container-header-close{
+  cursor: pointer;
 }

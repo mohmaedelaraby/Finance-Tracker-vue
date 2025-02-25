@@ -11,6 +11,11 @@ export const useTransactionStore = defineStore("transactionStore", () => {
 
   const categories = ["Food", "Transportation", "Bills", "General"];
 
+  //filter action
+  const selectedCategory = ref("");
+  const startDate = ref("");
+  const endDate = ref("");
+
   watch(
     transactions,
     () => {
@@ -39,6 +44,24 @@ export const useTransactionStore = defineStore("transactionStore", () => {
       return acc;
     }, {});
   });
+
+  const filteredTransactions = computed(() => {
+    return transactions.value.filter((t) => {
+      const matchesCategory =
+        !selectedCategory.value || t.category === selectedCategory.value;
+      const matchesDate =
+        (!startDate.value || new Date(t.date) >= new Date(startDate.value)) &&
+        (!endDate.value || new Date(t.date) <= new Date(endDate.value));
+
+      return matchesCategory && matchesDate;
+    });
+  });
+
+  const resetFilters = () => {
+    selectedCategory.value = "";
+    startDate.value = "";
+    endDate.value = "";
+  };
 
   /*  const fetchExchangeRates = async () => {
     exchangeRates.value = await fetchExchangeRatesAPI(baseCurrency.value);
@@ -69,12 +92,21 @@ export const useTransactionStore = defineStore("transactionStore", () => {
   };
 
   const filterTransactions = (category, dateRange) => {
+    // Return all transactions if no filters are applied
+    if (!category && (!dateRange || (!dateRange.start && !dateRange.end))) {
+      return transactions.value;
+    }
+  
+    // Apply filters
     return transactions.value.filter(
       (t) =>
         (!category || t.category === category) &&
-        (!dateRange || (t.date >= dateRange.start && t.date <= dateRange.end))
+        (!dateRange ||
+          (!dateRange.start || t.date >= dateRange.start) &&
+          (!dateRange.end || t.date <= dateRange.end))
     );
   };
+  
 
   const convertToBaseCurrency = (amount, currency) => {
     if (currency === baseCurrency.value) return amount;
@@ -117,6 +149,11 @@ export const useTransactionStore = defineStore("transactionStore", () => {
     netBalance,
     totalTransactions,
     categoryCounts,
+    selectedCategory,
+    startDate,
+    endDate,
+    filteredTransactions,
+    resetFilters,
     addTransaction,
     editTransaction,
     deleteTransaction,
