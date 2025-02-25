@@ -156,7 +156,7 @@ export const useTransactionStore = defineStore("transactionStore", () => {
         const currency = t.baseCurrency || "USD";
         const rate = t.rate || 1;
         const category = t.category || "Uncategorized";
-        const date = new Date(t.date).toISOString().split("T")[0]; // Ensure consistent date format
+        const date = new Date(t.date).toISOString().split("T")[0]; 
 
         return `${t.id},${type},${amount},${convertedAmount},${currency},${rate},${category},${date}`;
       })
@@ -172,7 +172,7 @@ export const useTransactionStore = defineStore("transactionStore", () => {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-    URL.revokeObjectURL(url); // Cleanup
+    URL.revokeObjectURL(url); 
   };
 
   onMounted(() => {

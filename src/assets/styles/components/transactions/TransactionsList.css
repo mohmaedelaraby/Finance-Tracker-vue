@@ -6,6 +6,17 @@
   justify-content: start;
   flex-direction: column;
 }
+.transactions-list-header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.transactions-list-header-title{
+  font-size: 24px;
+  font-weight: 600;
+  color: black;
+}
 .transactions-list-actions {
   width: 100%;
   display: flex;

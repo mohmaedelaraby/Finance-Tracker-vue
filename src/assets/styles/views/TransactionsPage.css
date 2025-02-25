@@ -25,8 +25,8 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   column-gap: 5%;
-  row-gap: 20%;
-  height: 400px;
+  row-gap: 5%;
+  height: 300px;
 }
 .transactions-summery-card {
   width: 100%;
