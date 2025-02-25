@@ -1,24 +1,25 @@
 # finance-tracker-vue-js
+```
+- Set up project structure: Organize folders and files properly.
+- Implement UI: Use native HTML and CSS to create the design.
+- Add routing: Configure Vue Router for navigation.
+- Create store with Pinia: Manage application state efficiently.
+- Implement transaction functionality: Add features for income/expense tracking.
+- Integrate bar chart: Use vue-chart and chart.js for visualizing transactions.
+- Use LocalStorage for persistence: Store transactions locally.
+- Write simple test cases: Ensure core functionalities work correctly.
+
+```
+
 
 ## Project setup
 ```
-npm install
+- clone the project 
+- npm install
+- npm run serve
 ```
 
-### Compiles and hot-reloads for development
+### Test
 ```
-npm run serve
+npm test
 ```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
