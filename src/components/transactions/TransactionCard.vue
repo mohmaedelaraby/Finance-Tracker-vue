@@ -1,5 +1,5 @@
 <template>
-  <div class="card" >
+  <div class="card">
     <div class="card-form" v-if="isEditing || isNew">
       <div class="card-title">
         {{ isNew ? "New Transaction" : "Edit Transaction" }}
@@ -37,7 +37,11 @@
       </div>
     </div>
 
-    <div v-else class="card-preview" :class="transaction?.income > 0 ? 'income_bg': 'expenses_bg' ">
+    <div
+      v-else
+      class="card-preview"
+      :class="transaction?.income > 0 ? 'income_bg' : 'expenses_bg'"
+    >
       <div class="card-preview-action">
         <button class="icon-btn edit-color" @click="toggleEdit">
           <Edit />
@@ -74,7 +78,20 @@
         <div class="card-preview-amount">
           <div class="card-preview-amount-label">Amount:</div>
           <div class="card-preview-amount-number">
-            {{ transaction?.income || transaction?.expenseAmount }}
+            {{
+              transaction?.income > 0
+                ? `${transaction?.exchangeRateIncome?.toLocaleString("en-US", {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  })}$ `
+                : `${transaction?.exchangeExpenseAmount?.toLocaleString(
+                    "en-US",
+                    {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2,
+                    }
+                  )}$`
+            }}
           </div>
         </div>
       </div>
