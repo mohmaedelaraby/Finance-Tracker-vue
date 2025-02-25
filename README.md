@@ -1,3 +1,5 @@
+Steps of Development: 
+
 - Set up project structure: Organize folders and files properly.
 - Implement UI: Use native HTML and CSS to create the design.
 - Add routing: Configure Vue Router for navigation.
