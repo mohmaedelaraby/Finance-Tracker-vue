@@ -42,7 +42,7 @@
         </button>
         <button
           class="icon-btn error-color"
-          @click="deleteItem"
+          @click="deleteItem(editableTransaction)"
         >
           <Trash2 />
         </button>
@@ -73,7 +73,7 @@ import { Edit, Trash2 } from "lucide-vue-next";
 import "@/assets/styles/components/transactions/TransactionCard.css";
 
 const store = useTransactionStore();
-const emit = defineEmits(["cancel", "save", "delete"]);
+const emit = defineEmits(["cancel", "save"]);
 
 const props = defineProps({
   transaction: Object,
@@ -120,9 +120,9 @@ const toggleEdit = () => {
 
 const saveTransaction = (transaction) => {
   if (props.isNew) {
-    emit("save", transaction); // Emit event to update parent
+    emit("save", transaction);
   } else {
-    store.editTransaction(transaction.id, transaction); // Edit existing transaction
+    store.editTransaction(transaction.id, transaction);
   }
   isEditing.value = false;
 };
@@ -131,12 +131,14 @@ const saveTransaction = (transaction) => {
 const cancelEdit = () => {
   isEditing.value = false;
   if (props.isNew) {
-    emit("cancel"); // Close form when canceling a new transaction
+    emit("cancel");
   }
 };
 
-// Cancel edit and return to preview
-const deleteItem = () => {
-  emit("delete");
+// delete and return to preview
+const deleteItem = (transaction) => {
+  if (transaction.id) {
+    store.deleteTransaction(transaction.id);
+  }
 };
 </script>

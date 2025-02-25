@@ -28,35 +28,39 @@
 
 <script setup>
 import "@/assets/styles/views/TransactionsPage.css";
-import { HandCoins, Wallet, BadgeDollarSign } from "lucide-vue-next";
+import { HandCoins, Wallet, BadgeDollarSign ,Handshake } from "lucide-vue-next";
 
 import TransactionSummeryCard from "@/components/transactions/TransactionSummeryCard.vue";
 import TransactionsList from "@/components/transactions/TransactionsList.vue";
+import { useTransactionStore } from "@/stores/transactionStore";
+import { computed } from "vue";
 
-const summeryList = [
+const store = useTransactionStore();
+
+const summeryList = computed(() => [
   {
     label: "Total income",
-    number: 50015225,
+    number: store.totalIncome,
     textColor: "#2A5F4A",
     icon: BadgeDollarSign,
   },
   {
     label: " Total expenses",
-    number: 3088660,
+    number: store.totalExpense,
     textColor: "#BC3E3E",
     icon: HandCoins,
   },
   {
     label: "Net Balance",
-    number: 2000000,
-    textColor: "black",
+    number: store.netBalance,
+    textColor: store.netBalance > 0 ? "#2A5F4A" :"#2A5F4A",
     icon: Wallet,
   },
   {
     label: "Total Transactions",
-    number: 1968,
+    number: store.totalTransactions,
     textColor: "black",
-    icon: Wallet,
+    icon: Handshake ,
   },
-];
+]);
 </script>

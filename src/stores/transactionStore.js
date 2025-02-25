@@ -1,17 +1,29 @@
 //import { fetchExchangeRatesAPI } from "@/services/exchangeRates";
 import { defineStore } from "pinia";
-import { ref, watch, onMounted } from "vue";
+import { ref, watch, onMounted, computed } from "vue";
 
 export const useTransactionStore = defineStore("transactionStore", () => {
   const transactions = ref(JSON.parse(localStorage.getItem("transactions") || "[]"));
   const baseCurrency = ref("USD");
   const exchangeRates = ref({});
+  
   const categories = ["Food", "Transportation", "Bills", "General"];
 
   watch(transactions, () => {
     localStorage.setItem("transactions", JSON.stringify(transactions.value));
   }, { deep: true });
 
+  const totalIncome = computed(() =>
+    transactions.value.reduce((sum, t) => sum + (t.income || 0), 0)
+  );
+
+  const totalExpense = computed(() =>
+    transactions.value.reduce((sum, t) => sum + (t.expenseAmount || 0), 0)
+  );
+
+  const netBalance = computed(() => totalIncome.value - totalExpense.value);
+
+  const totalTransactions = computed(() => transactions.value.length);
  /*  const fetchExchangeRates = async () => {
     exchangeRates.value = await fetchExchangeRatesAPI(baseCurrency.value);
   }; */
@@ -21,7 +33,7 @@ export const useTransactionStore = defineStore("transactionStore", () => {
       id: Date.now(),
       income: transaction.income || 0,
       expenseAmount: transaction.expenseAmount || 0,
-      category: transaction.category || "General",
+      category: transaction.category || "",
       date: transaction.date || new Date().toISOString()
     });
   };
@@ -72,6 +84,7 @@ export const useTransactionStore = defineStore("transactionStore", () => {
 
   return { 
     transactions, baseCurrency, exchangeRates, categories,
+    totalExpense,totalIncome,netBalance, totalTransactions,
     addTransaction, editTransaction, deleteTransaction, 
     filterTransactions, convertToBaseCurrency, exportToCSV
   };

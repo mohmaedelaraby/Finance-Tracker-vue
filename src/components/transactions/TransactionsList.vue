@@ -96,14 +96,5 @@ const saveNewTransaction = (transaction) => {
   newTransaction.value = null;
 };
 
-/* // delete new transaction
-const deleteTransaction = (transaction) => {
-  console.log("deleteTransaction triggered with:", transaction); // Debugging log
-  if (transaction.id) {
-    store.deleteTransaction(transaction.id); // Delete from store
-  } else {
-    // If deleting an unsaved transaction, just close the form
-    cancelNewTransaction();
-  }
-}; */
+
 </script>
