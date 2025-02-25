@@ -104,7 +104,6 @@ import { ref, defineProps, watch, defineEmits } from "vue";
 import { useTransactionStore } from "@/stores/transactionStore";
 import TransactionForm from "./TransactionForm.vue";
 import { Edit, Trash2, HandCoins, BadgeDollarSign } from "lucide-vue-next";
-import "@/assets/styles/components/transactions/TransactionCard.css";
 
 const store = useTransactionStore();
 const emit = defineEmits(["cancel", "save"]);
@@ -176,3 +175,7 @@ const deleteItem = (transaction) => {
   }
 };
 </script>
+
+<style scoped>
+@import "@/assets/styles/components/transactions/TransactionCard.css";
+</style>

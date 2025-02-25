@@ -17,6 +17,7 @@ const goToHome = () => {
   router.push("/transactions");
 };
 </script>
-<style lang="ts">
-import "@/assets/styles/components/common/Header.css"
+
+<style scoped>
+@import "@/assets/styles/components/common/Header.css";
 </style>

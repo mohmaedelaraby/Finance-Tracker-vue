@@ -96,7 +96,6 @@
 
 <script setup>
 import { defineProps, defineEmits, ref, watch, computed } from "vue";
-import "@/assets/styles/components/transactions/TransactionForm.css";
 import { useTransactionStore } from "@/stores/transactionStore";
 import { ArrowLeftRight } from "lucide-vue-next";
 
@@ -160,3 +159,7 @@ const cancel = () => {
   emit("cancel");
 };
 </script>
+
+<style scoped>
+@import "@/assets/styles/components/transactions/TransactionForm.css";
+</style>

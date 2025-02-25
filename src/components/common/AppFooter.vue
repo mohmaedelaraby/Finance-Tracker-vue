@@ -6,9 +6,7 @@
     </div>
   </div>
 </template>
-<script>
 
-</script>
-<style lang="ts">
-import "@/assets/styles/components/common/Footer.css"
+<style scoped>
+@import "@/assets/styles/components/common/Footer.css";
 </style>

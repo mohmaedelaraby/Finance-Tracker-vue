@@ -16,11 +16,10 @@ import {
   CategoryScale,
   LinearScale,
 } from "chart.js";
-import "@/assets/styles/components/charts/BarChart.css";
+
 import { useTransactionStore } from "@/stores/transactionStore";
 
 const store = useTransactionStore();
-
 
 ChartJS.register(
   Title,
@@ -53,3 +52,7 @@ const chartOptions = ref({
   maintainAspectRatio: false,
 });
 </script>
+
+<style scoped>
+@import "@/assets/styles/components/charts/BarChart.css";
+</style>

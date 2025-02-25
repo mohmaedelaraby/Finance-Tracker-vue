@@ -51,6 +51,5 @@ defineProps({
 </script>
 
 <style scoped>
-/* If using lang="ts", remove it unless you're using SCSS or TypeScript inside styles */
 @import "@/assets/styles/components/transactions/TransactionSummeryCard.css";
 </style>

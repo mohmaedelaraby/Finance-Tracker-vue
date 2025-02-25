@@ -115,7 +115,6 @@ import { Filter, CircleX, CircleAlert } from "lucide-vue-next";
 import { ref, watch, onMounted, computed } from "vue";
 import { useTransactionStore } from "@/stores/transactionStore";
 import TransactionCard from "@/components/transactions/TransactionCard.vue";
-import "@/assets/styles/components/transactions/TransactionsList.css";
 
 // Store
 const store = useTransactionStore();
@@ -206,3 +205,7 @@ const saveNewTransaction = (transaction) => {
   newTransaction.value = null;
 };
 </script>
+
+<style scoped>
+@import "@/assets/styles/components/transactions/TransactionsList.css";
+</style>
