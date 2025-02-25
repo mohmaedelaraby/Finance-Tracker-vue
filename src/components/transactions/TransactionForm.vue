@@ -4,14 +4,14 @@
       <div class="form-group-item">
         <div class="form-group-item-label">Amount:</div>
         <div class="form-group-item-input">
-          <input type="number" v-model="localTransaction.income" />
+          <input class="primary-input" type="number" v-model="localTransaction.income" />
         </div>
       </div>
 
       <div class="form-group-item">
         <div class="form-group-item-label">Date:</div>
         <div class="form-group-item-input">
-          <input type="date" v-model="localTransaction.date" />
+          <input  class="primary-input" type="date" v-model="localTransaction.date" />
         </div>
       </div>
     </div>
@@ -21,7 +21,7 @@
         <div class="form-group-item">
           <div class="form-group-item-label">Amount:</div>
           <div class="form-group-item-input">
-            <input type="number" v-model="localTransaction.expenseAmount" />
+            <input  class="primary-input" type="number" v-model="localTransaction.expenseAmount" />
           </div>
         </div>
 
@@ -43,7 +43,7 @@
         <div class="form-group-item">
           <div class="form-group-item-label">Date:</div>
           <div class="form-group-item-input">
-            <input type="date" v-model="localTransaction.date" />
+            <input  class="primary-input" type="date" v-model="localTransaction.date" />
           </div>
         </div>
       </div>
