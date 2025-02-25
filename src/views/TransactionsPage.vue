@@ -18,9 +18,11 @@
         </div>
         <div class="transactions-container-header-item chart">chart</div>
       </div>
-    </div>
 
-    <div class="transactions-container-body">body</div>
+      <div class="transactions-container-body">
+        <TransactionsList />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -29,6 +31,7 @@ import "@/assets/styles/views/TransactionsPage.css";
 import { HandCoins, Wallet, BadgeDollarSign } from "lucide-vue-next";
 
 import TransactionSummeryCard from "@/components/transactions/TransactionSummeryCard.vue";
+import TransactionsList from "@/components/transactions/TransactionsList.vue";
 
 const summeryList = [
   {

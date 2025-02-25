@@ -2,12 +2,18 @@
   height: 100%;
 }
 .transactions-container {
-  padding: 16px;
+  padding: 16px 42px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  /* justify-content: center; */
+  flex-direction: column;
 }
 .transactions-container-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 100%;
 }
 .transactions-container-header-item {
   display: flex;
@@ -16,19 +22,21 @@
 .transactions-summery {
   width: 100%;
   margin-bottom: 8px;
+  display: grid;
+  grid-template-columns: 1fr 1fr ;
+  gap: 8px;
 }
 .transactions-summery-card {
- 
   width: 100%;
   margin: 0px 8px;
-
 }
 .chart {
-  width: 50%;
+  width: 100%;
   background-color: blue;
+  margin-inline-start: 24px;
 }
 .transactions-container-body {
   margin-top: 8px;
-  background-color: blue;
   height: 100%;
+  width: 100%;
 }

@@ -7,7 +7,7 @@
   </div>
 </template>
 <script>
-export default {};
+
 </script>
 <style lang="ts">
 import "@/assets/styles/components/common/Footer.css"

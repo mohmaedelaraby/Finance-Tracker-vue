@@ -1,0 +1,103 @@
+.card {
+  border: 1px solid #ccc;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  padding: 16px;
+  border-radius: 8px;
+  width: 100%;
+}
+/* preview part */
+.card-preview {
+  padding: 8px;
+  width: 100%;
+  position: relative;
+}
+
+.card-preview-action {
+display: flex;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.card-preview-header {
+  margin-top: 4px;
+  display: flex;
+  align-items: center;
+}
+.card-preview-header-title {
+  color: black;
+  font-size: 24px;
+  font-weight: 600;
+}
+.card-preview-header-icon {
+  margin-inline-start: 16px;
+}
+.card-preview-header-icon-container {
+  color: #222222;
+  background: #e4e4e4;
+  border-radius: 10px;
+  padding: 8px;
+  display: flex;
+}
+.card-preview-header-icon-container-iconstyle {
+  width: 20px;
+  height: 20px;
+}
+
+.card-preview-body {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 16px;
+}
+.card-preview-amount,
+.card-preview-details-category,
+.card-preview-details-date {
+  display: flex;
+  align-items: center;
+}
+.card-preview-amount-label,
+.card-preview-details-category-label,
+.card-preview-details-date-label {
+  color: black;
+  font-size: 16px;
+  font-weight: 400;
+}
+.card-preview-amount-number,
+.card-preview-details-category-number,
+.card-preview-details-date-number {
+  color: black;
+  font-size: 16px;
+  font-weight: 600;
+}
+.card-preview-details {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+/* tabs part */
+
+.tabs {
+  display: flex;
+  margin-bottom: 12px;
+}
+.tab-btn {
+  width: 100%;
+  padding: 8px;
+  border: none;
+  cursor: pointer;
+  background: #ddd;
+  
+}
+.tab-btn.active {
+  background: #3b3b3b;
+  color: white;
+}
+
+/* form part */
+.form {
+  margin-bottom: 12px;
+  margin-top: 12px;
+}
