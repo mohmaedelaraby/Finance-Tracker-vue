@@ -61,7 +61,7 @@
             </div>
           </div>
         </div>
-        <div>
+        <div class="actions-btns">
           <button
             class="primary-btn"
             :disabled="isAddingTransaction"

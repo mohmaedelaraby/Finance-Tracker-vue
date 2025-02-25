@@ -4,6 +4,8 @@
   justify-content: center;
   flex-direction: column;
   height: 100%;
+
+  padding: 64px;
 }
 
 .not-found-header {

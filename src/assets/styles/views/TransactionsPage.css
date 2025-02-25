@@ -44,3 +44,20 @@
   height: 100%;
   width: 100%;
 }
+@media (max-width: 768px) {
+  .transactions-container-header {
+    flex-direction: column;
+  }
+  .chart {
+    margin-inline-start: 0;
+  }
+}
+@media (max-width: 426px) {
+  .transactions-summery{
+    grid-template-columns:1fr;
+    height: 600px;
+  }
+  .chart {
+    margin-inline-start: 0;
+  }
+}

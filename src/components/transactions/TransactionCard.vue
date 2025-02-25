@@ -57,7 +57,7 @@
 
       <div class="card-preview-header">
         <div class="card-preview-header-title">
-          {{ transaction?.category }}
+        
           {{ transaction?.income > 0 ? "Income" : "Expense" }}
         </div>
         <div class="card-preview-header-icon">

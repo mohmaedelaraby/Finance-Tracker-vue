@@ -42,3 +42,13 @@
   justify-content: center;
   width: 100%;
 }
+
+@media (max-width: 426px) {
+  .form-group{
+    padding: 8px 12px;
+  }
+  .form-group-item-exchange{
+    flex-direction: column;
+
+  }
+}
