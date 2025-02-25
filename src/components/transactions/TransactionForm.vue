@@ -4,14 +4,22 @@
       <div class="form-group-item">
         <div class="form-group-item-label">Amount:</div>
         <div class="form-group-item-input">
-          <input class="primary-input" type="number" v-model="localTransaction.income" />
+          <input
+            class="primary-input"
+            type="number"
+            v-model="localTransaction.income"
+          />
         </div>
       </div>
 
       <div class="form-group-item">
         <div class="form-group-item-label">Date:</div>
         <div class="form-group-item-input">
-          <input  class="primary-input" type="date" v-model="localTransaction.date" />
+          <input
+            class="primary-input"
+            type="date"
+            v-model="localTransaction.date"
+          />
         </div>
       </div>
     </div>
@@ -21,7 +29,11 @@
         <div class="form-group-item">
           <div class="form-group-item-label">Amount:</div>
           <div class="form-group-item-input">
-            <input  class="primary-input" type="number" v-model="localTransaction.expenseAmount" />
+            <input
+              class="primary-input"
+              type="number"
+              v-model="localTransaction.expenseAmount"
+            />
           </div>
         </div>
 
@@ -43,14 +55,22 @@
         <div class="form-group-item">
           <div class="form-group-item-label">Date:</div>
           <div class="form-group-item-input">
-            <input  class="primary-input" type="date" v-model="localTransaction.date" />
+            <input
+              class="primary-input"
+              type="date"
+              v-model="localTransaction.date"
+            />
           </div>
         </div>
       </div>
     </div>
 
-    <button class="primary-btn"  @click="save">Save</button>
-    <button class="secondary-btn" type="button" @click="cancel">Cancel</button>
+    <div class="form-group-actions">
+      <button class="secondary-btn form-group-actions-btn" type="button" @click="cancel">
+        Cancel
+      </button>
+      <button class="primary-btn form-group-actions-btn" @click="save">Save</button>
+    </div>
   </form>
 </template>
 

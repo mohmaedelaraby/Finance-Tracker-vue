@@ -22,35 +22,11 @@
   width: 100%;
 }
 
-select {
+.form-group-actions{
   width: 100%;
-  padding: 10px;
-  border: 1px solid #333;
-  border-radius: 5px;
-  background-color: white;
-  color: #333;
-  font-size: 16px;
-  cursor: pointer;
-  outline: none;
+  display: flex;
+  padding: 8px 32px;
 }
-
-/* Arrow Customization */
-select::-ms-expand {
-  display: none; /* Hide default arrow in IE */
+.form-group-actions-btn{
+  width: 100%;
 }
-
-select:hover {
-  border-color: #333;
-}
-
-select:focus {
-  border-color: #333;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-}
-
-/* Dropdown items */
-option {
-  background: white;
-  color: #333;
-}
-

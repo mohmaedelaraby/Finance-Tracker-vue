@@ -6,6 +6,12 @@
   border-radius: 8px;
   width: 100%;
 }
+.card-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #222222;
+  margin-bottom: 16px;
+}
 /* preview part */
 .card-preview {
   padding: 8px;
@@ -14,7 +20,7 @@
 }
 
 .card-preview-action {
-display: flex;
+  display: flex;
   position: absolute;
   top: 0;
   right: 0;
@@ -76,7 +82,6 @@ display: flex;
   justify-content: space-between;
 }
 
-
 /* tabs part */
 
 .tabs {
@@ -89,7 +94,6 @@ display: flex;
   border: none;
   cursor: pointer;
   background: #ddd;
-  
 }
 .tab-btn.active {
   background: #3b3b3b;

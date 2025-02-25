@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div v-if="isEditing || isNew">
-      <h3>{{ isNew ? "New Transaction" : "Edit Transaction" }}</h3>
+      <div class="card-title">{{ isNew ? "New Transaction" : "Edit Transaction" }}</div>
 
       <div
         v-if="!editableTransaction.income && !editableTransaction.expenseAmount"
