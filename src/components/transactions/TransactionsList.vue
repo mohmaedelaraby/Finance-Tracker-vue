@@ -12,6 +12,13 @@
         >
           Add Transaction
         </button>
+        <button
+          class="primary-btn"
+          :disabled="isAddingTransaction"
+          @click="exportTransactions"
+        >
+          Export CSV
+        </button>
       </div>
     </div>
 
@@ -82,6 +89,12 @@ const openNewTransactionForm = () => {
     date: new Date().toISOString().split("T")[0],
   };
 };
+
+//export csv file
+const exportTransactions = () => {
+  store.exportToCSV()
+};
+
 
 // Cancel new transaction form
 const cancelNewTransaction = () => {

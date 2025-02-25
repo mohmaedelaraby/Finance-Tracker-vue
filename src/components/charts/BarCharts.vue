@@ -21,7 +21,6 @@ import { useTransactionStore } from "@/stores/transactionStore";
 
 const store = useTransactionStore();
 
-console.log("test", store.categoryCounts);
 
 ChartJS.register(
   Title,
