@@ -16,6 +16,6 @@ const goHome = () => {
   router.push("/transactions");
 };
 </script>
-<style lang="ts">
-import "@/assets/styles/views/NotFoundPage.css"
+<style scoped>
+@import "@/assets/styles/views/NotFoundPage.css";
 </style>

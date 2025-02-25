@@ -4,7 +4,7 @@
       <div class="transactions-container-header">
         <div class="transactions-container-header-item transactions-summery">
           <div
-            v-for="(summery, index) in summeryList"
+            v-for="(summery, index) in summeryCards"
             :key="index"
             class="transactions-summery-card"
           >
@@ -18,7 +18,7 @@
           </div>
         </div>
         <div class="transactions-container-header-item chart">
-          <BarCharts/>
+          <BarCharts />
         </div>
       </div>
 
@@ -30,8 +30,7 @@
 </template>
 
 <script setup>
-import "@/assets/styles/views/TransactionsPage.css";
-import { HandCoins, Wallet, BadgeDollarSign ,Handshake } from "lucide-vue-next";
+import { HandCoins, Wallet, BadgeDollarSign, Handshake } from "lucide-vue-next";
 
 import TransactionSummeryCard from "@/components/transactions/TransactionSummeryCard.vue";
 import TransactionsList from "@/components/transactions/TransactionsList.vue";
@@ -40,34 +39,38 @@ import { computed } from "vue";
 import BarCharts from "@/components/charts/BarCharts.vue";
 const store = useTransactionStore();
 
-const summeryList = computed(() => [
+const summeryCards = computed(() => [
   {
     label: "Total income",
     number: store.totalIncome,
     textColor: "#2A5F4A",
     icon: BadgeDollarSign,
-    isCurrency:true,
+    isCurrency: true,
   },
   {
     label: " Total expenses",
     number: store.totalExpense,
     textColor: "#BC3E3E",
     icon: HandCoins,
-    isCurrency:true,
+    isCurrency: true,
   },
   {
     label: "Net Balance",
     number: store.netBalance,
-    textColor: store.netBalance > 0 ? "#2A5F4A" :"#BC3E3E",
+    textColor: store.netBalance > 0 ? "#2A5F4A" : "#BC3E3E",
     icon: Wallet,
-    isCurrency:true,
+    isCurrency: true,
   },
   {
     label: "Total Transactions",
     number: store.totalTransactions,
     textColor: "black",
-    icon: Handshake ,
-    isCurrency:false,
+    icon: Handshake,
+    isCurrency: false,
   },
 ]);
 </script>
+
+<style scoped>
+@import "@/assets/styles/views/TransactionsPage.css";
+</style>
