@@ -91,7 +91,7 @@ export const useTransactionStore = defineStore("transactionStore", () => {
      
       expenseAmount: transaction.expenseAmount || 0,
       exchangeExpenseAmount: transaction.exchangeExpenseAmount || 0,
-      category: transaction.category || "",
+      category: transaction.category ||  "General",
       date: transaction.date || new Date().toISOString(),
     });
   };

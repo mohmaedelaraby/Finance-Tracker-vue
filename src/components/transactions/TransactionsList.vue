@@ -4,7 +4,7 @@
       <div class="transactions-list-header-title">Transactions</div>
       <div class="transactions-list-actions">
         <div class="filter">
-          <button class="icon-btn" @click="openFilter"><Filter /></button>
+          <button class="icon-btn" :disabled="!filteredTransactions.length" @click="openFilter"><Filter /></button>
 
           <div v-if="isFilter" class="filter-container">
             <div class="filter-container-header">
@@ -102,8 +102,8 @@
           </div>
         </div>
 
-        <div v-else-if="!filteredTransactions.length && !isAddingTransaction">
-          <div class="transactions-list-body-container-empty">
+       
+          <div v-else-if="!filteredTransactions.length && !isAddingTransaction" class="transactions-list-body-container-empty">
             <div class="transactions-list-body-container-empty-icon">
               <CircleAlert
                 class="transactions-list-body-container-empty-icon-style"
@@ -113,7 +113,7 @@
               There is no Transactions
             </div>
           </div>
-        </div>
+        
       </div>
     </div>
   </div>
