@@ -3,7 +3,9 @@ import { defineStore } from "pinia";
 import { ref, watch, onMounted, computed } from "vue";
 
 export const useTransactionStore = defineStore("transactionStore", () => {
-  const transactions = ref(JSON.parse(localStorage.getItem("transactions") || "[]"));
+  const transactions = ref(
+    JSON.parse(localStorage.getItem("transactions") || "[]")
+  );
   const baseCurrency = ref("USD");
   const baseRate = ref(1);
   const exchangeRates = ref({});
@@ -38,11 +40,17 @@ export const useTransactionStore = defineStore("transactionStore", () => {
 
   // Computed values
   const totalIncome = computed(() =>
-    transactions.value.reduce((sum, t) => sum + (t.exchangeRateIncome || t.income || 0), 0)
+    transactions.value.reduce(
+      (sum, t) => sum + (t.exchangeRateIncome || t.income || 0),
+      0
+    )
   );
 
   const totalExpense = computed(() =>
-    transactions.value.reduce((sum, t) => sum + (t.exchangeExpenseAmount || t.expenseAmount || 0), 0)
+    transactions.value.reduce(
+      (sum, t) => sum + (t.exchangeExpenseAmount || t.expenseAmount || 0),
+      0
+    )
   );
 
   const netBalance = computed(() => totalIncome.value - totalExpense.value);
@@ -51,14 +59,17 @@ export const useTransactionStore = defineStore("transactionStore", () => {
 
   const categoryCounts = computed(() =>
     categories.reduce((acc, category) => {
-      acc[category] = transactions.value.filter((t) => t.category === category).length;
+      acc[category] = transactions.value.filter(
+        (t) => t.category === category
+      ).length;
       return acc;
     }, {})
   );
 
   const filteredTransactions = computed(() => {
     return transactions.value.filter((t) => {
-      const matchesCategory = !selectedCategory.value || t.category === selectedCategory.value;
+      const matchesCategory =
+        !selectedCategory.value || t.category === selectedCategory.value;
       const matchesDate =
         (!startDate.value || new Date(t.date) >= new Date(startDate.value)) &&
         (!endDate.value || new Date(t.date) <= new Date(endDate.value));
@@ -111,7 +122,9 @@ export const useTransactionStore = defineStore("transactionStore", () => {
     return transactions.value.filter(
       (t) =>
         (!category || t.category === category) &&
-        (!dateRange || ((!dateRange.start || t.date >= dateRange.start) && (!dateRange.end || t.date <= dateRange.end)))
+        (!dateRange ||
+          ((!dateRange.start || t.date >= dateRange.start) &&
+            (!dateRange.end || t.date <= dateRange.end)))
     );
   };
 
@@ -120,26 +133,50 @@ export const useTransactionStore = defineStore("transactionStore", () => {
     return amount / rate;
   };
 
-  // Export to CSV
   const exportToCSV = () => {
-    const headers = "Type,Amount,Currency,Category,Date\n";
+    const headers =
+      "ID,Type,Amount,Converted Amount,Base Currency,Rate,Category,Date\n";
+
     const rows = transactions.value
       .map((t) => {
-        const type = t.income ? "Income" : "Expense";
-        const amount = t.income ? t.income : -t.expenseAmount; // Correctly handle negative values for expenses
-        return `${type},${amount},${t.baseCurrency},${t.category},${t.date}`;
+        const type = t.income > 0 ? "Income" : "Expense";
+        const amount = (t.income || t.expenseAmount || 0).toLocaleString(
+          "en-US",
+          {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          }
+        );
+
+        const convertedAmount = (
+          t.exchangeRateIncome ||
+          t.exchangeExpenseAmount ||
+          0
+        ).toLocaleString("en-US", {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        });
+
+        const currency = t.baseCurrency || "USD";
+        const rate = t.rate || 1;
+        const category = t.category || "Uncategorized";
+        const date = new Date(t.date).toISOString().split("T")[0]; // Ensure consistent date format
+
+        return `${t.id},${type},${amount},${convertedAmount},${currency},${rate},${category},${date}`;
       })
       .join("\n");
 
-    const csvContent = "data:text/csv;charset=utf-8," + headers + rows;
-    const encodedUri = encodeURI(csvContent);
+    const csvContent = headers + rows;
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
 
     const link = document.createElement("a");
-    link.setAttribute("href", encodedUri);
+    link.href = url;
     link.setAttribute("download", "transactions.csv");
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+    URL.revokeObjectURL(url); // Cleanup
   };
 
   onMounted(() => {
