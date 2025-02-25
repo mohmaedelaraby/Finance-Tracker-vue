@@ -17,7 +17,6 @@ export const useTransactionStore = defineStore("transactionStore", () => {
   const startDate = ref("");
   const endDate = ref("");
 
-  // Persist transactions to localStorage
   watch(
     transactions,
     () => {
@@ -26,7 +25,6 @@ export const useTransactionStore = defineStore("transactionStore", () => {
     { deep: true }
   );
 
-  // Fetch exchange rates
   const fetchExchangeRates = async () => {
     try {
       const rates = await fetchExchangeRatesAPI(baseCurrency.value);
@@ -38,7 +36,6 @@ export const useTransactionStore = defineStore("transactionStore", () => {
     }
   };
 
-  // Computed values
   const totalIncome = computed(() =>
     transactions.value.reduce(
       (sum, t) => sum + (t.exchangeRateIncome || t.income || 0),
@@ -84,7 +81,6 @@ export const useTransactionStore = defineStore("transactionStore", () => {
     endDate.value = "";
   };
 
-  // Transaction Actions
   const addTransaction = (transaction) => {
     transactions.value.push({
       id: Date.now(),
@@ -92,7 +88,7 @@ export const useTransactionStore = defineStore("transactionStore", () => {
       exchangeRateIncome: transaction.exchangeRateIncome || 0,
       baseCurrency: transaction.baseCurrency || baseCurrency.value, // Ensure it's storing currency code
       baseRate: transaction.baseRate || baseRate.value,
-      rate: transaction.rate || 1,
+     
       expenseAmount: transaction.expenseAmount || 0,
       exchangeExpenseAmount: transaction.exchangeExpenseAmount || 0,
       category: transaction.category || "",

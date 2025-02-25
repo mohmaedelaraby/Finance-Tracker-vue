@@ -34,7 +34,7 @@
   align-items: center;
 }
 .card-preview-header-title {
-  color: black;
+  color: white;
   font-size: 24px;
   font-weight: 600;
 }
@@ -60,30 +60,37 @@
   justify-content: space-between;
   margin-top: 16px;
 }
+
 .card-preview-amount,
+.card-preview-details,
 .card-preview-details-category,
-.card-preview-details-date {
+.card-preview-details-date{
   display: flex;
-  align-items: center;
+  align-items: center; 
 }
 .card-preview-amount-label,
 .card-preview-details-category-label,
-.card-preview-details-date-label {
-  color: black;
-  font-size: 16px;
+.card-preview-date-details-label {
+  color: white;
+  font-size: 18px;
   font-weight: 400;
+
 }
+
 .card-preview-amount-number,
 .card-preview-details-category-number,
-.card-preview-details-date-number {
-  color: black;
+.card-preview-date-details-number {
+  color: white;
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 800;
 }
 .card-preview-details {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+.card-preview-details-category{
+  margin-right: 16px;
 }
 
 

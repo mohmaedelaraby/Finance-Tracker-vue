@@ -181,7 +181,6 @@ const openNewTransactionForm = () => {
     exchangeExpenseAmount:0,
     baseCurrency:store.baseCurrency,
     baseRate:1,
-    rate:1,
     category: "",
     date: new Date().toISOString().split("T")[0],
   };

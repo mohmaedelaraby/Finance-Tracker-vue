@@ -94,6 +94,25 @@
             }}
           </div>
         </div>
+
+        <div class="card-preview-details">
+          <div
+            v-if="transaction?.category"
+            class="card-preview-details-category"
+          >
+            <div class="card-preview-details-category-label ">category:</div>
+            <div class="card-preview-details-category-number">
+              {{ transaction?.category }}
+            </div>
+          </div>
+
+          <div class="card-preview-details-date">
+            <div class="card-preview-date-details-label">date:</div>
+            <div class="card-preview-date-details-number">
+              {{ transaction?.date }}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
