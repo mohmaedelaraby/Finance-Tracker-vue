@@ -30,7 +30,7 @@
   align-items: center;
   flex-direction: column;
   height: 100%;
-  max-height: calc(100vh - 380px);
+  max-height:calc(100vh - 518px);
 
   overflow-y: auto;
 }

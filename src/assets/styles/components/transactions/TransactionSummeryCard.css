@@ -4,13 +4,17 @@
   border-radius: 20px;
   min-width: 155px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  height: 100%;
 }
 .summery-card-container {
   padding: 16px 16px;
-  display: flex;
+  display: flex
+;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
   flex-direction: column;
+  height: 100%;
+  
 }
 .summery-card-container-header{
   display: flex;
@@ -21,7 +25,7 @@
 
 .summery-card-container-header-label {
   color: black;
-  font-size: 18px;
+  font-size: 24px;
   font-weight: 500;
 }
 .summery-card-container-header-icon {
@@ -46,7 +50,7 @@
 }
 
 .summery-card-container-bottom-number {
-  font-size: 20px;
+  font-size: 24px;
   color: #3b3b3b;
   font-weight: bold;
   margin-top: 4px;

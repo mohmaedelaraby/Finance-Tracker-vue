@@ -16,7 +16,9 @@
             />
           </div>
         </div>
-        <div class="transactions-container-header-item chart">chart</div>
+        <div class="transactions-container-header-item chart">
+          <BarCharts/>
+        </div>
       </div>
 
       <div class="transactions-container-body">
@@ -34,7 +36,7 @@ import TransactionSummeryCard from "@/components/transactions/TransactionSummery
 import TransactionsList from "@/components/transactions/TransactionsList.vue";
 import { useTransactionStore } from "@/stores/transactionStore";
 import { computed } from "vue";
-
+import BarCharts from "@/components/charts/BarCharts.vue";
 const store = useTransactionStore();
 
 const summeryList = computed(() => [

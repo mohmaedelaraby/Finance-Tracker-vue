@@ -9,7 +9,13 @@
   text-align: center;
 }
 .main-layout {
-  height: 100vh;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.main-layout-pages {
+  padding-top: 80px;
 }
 
 ::-webkit-scrollbar {
